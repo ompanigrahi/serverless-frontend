@@ -100,7 +100,7 @@ export default function Home() {
     function renderLander() {
         return (
             <div className="lander">
-                <h1>Scribble</h1>
+                <h1>Scribbled</h1>
                 <p className="text-muted">A digital note-taking app</p>
                 <div className="box">
                     <LinkContainer to="/signup">
