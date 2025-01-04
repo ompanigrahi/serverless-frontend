@@ -42,6 +42,23 @@ export default function Home() {
         return await API.get("notes", "/notes-app-uploads");
     }
 
+    async function handleDeleteAll() {
+        const confirmed = window.confirm(
+            "Are you sure you want to delete all your notes? This action cannot be undone."
+        );
+
+        if (!confirmed) return;
+
+        try {
+            await API.del("notes", "/notes-app-uploads");
+            setNotes([]);
+            setFilteredNotes([]);
+            alert("All notes have been deleted.");
+        } catch (e) {
+            onError(e);
+        }
+    }
+
     function handleSearch(event) {
         const term = event.target.value.toLowerCase();
         setSearchTerm(term);
@@ -64,6 +81,13 @@ export default function Home() {
                         <span className="ml-2 font-weight-bold">Create a new note</span>
                     </ListGroup.Item>
                 </LinkContainer>
+                <ListGroup.Item
+                    action
+                    className="py-3 text-center font-weight-bold text-danger"
+                    onClick={handleDeleteAll}
+                >
+                    Delete All Notes
+                </ListGroup.Item>
                 {notes.map(({ noteId, content, createdAt, attachment }) => {
                     const imageUrl = attachment ? `${BASE_URL}/${attachment}` : null;
 
