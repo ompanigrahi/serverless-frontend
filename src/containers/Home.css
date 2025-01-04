@@ -6,6 +6,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Ubuntu", Arial, sans-serif;
+    /* background-color: linear-gradient(to bottom, #52796f, #84a98c,#cad2c5); */
 }
 
 .Home .lander {
@@ -36,12 +37,24 @@ body {
     margin-top: 20px;
 }
 
+/* Search Bar */
 .Home .notes .form-control {
     margin-bottom: 20px;
     font-family: "Ubuntu", sans-serif;
     font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
 }
 
+.Home .notes .form-control:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
+}
+
+/* Notes List Items */
 .Home .notes .list-group-item {
     display: flex;
     align-items: center;
@@ -63,7 +76,6 @@ body {
     margin-right: 12px;
 }
 
-
 .Home .notes .font-weight-bold {
     font-family: "Ubuntu", sans-serif;
     font-size: 18px;
@@ -75,8 +87,37 @@ body {
     color: #6c757d;
 }
 
+/* Delete All Notes Button */
+.Home .notes .delete-all-btn {
+    display: block;
+    width: 100%;
+    margin: 10px 0 20px;
+    padding: 10px 15px;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.Home .notes .delete-all-btn:hover {
+    background-color: #c82333;
+}
+
 /* Utility for consistent form styling */
 .notes .form-control {
     margin-bottom: 20px;
     font-size: 16px;
+}
+
+/* Loader Message */
+.Home .notes p {
+    text-align: center;
+    font-style: italic;
+    color: #6c757d;
 }
