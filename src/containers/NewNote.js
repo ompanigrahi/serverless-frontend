@@ -33,11 +33,10 @@ export default function NewNote() {
         }
         setIsLoading(true);
         try {
-            console.log("This is a trial");
             const attachment = file.current ? await s3Upload(file.current) : null;
             await createNote({ content, attachment });
             history.push("/");
-            console.log(attachment);
+            // console.log(attachment);
         } catch (e) {
             onError(e);
             setIsLoading(false);
@@ -45,9 +44,14 @@ export default function NewNote() {
     }
 
     function createNote(note) {
-        return API.post("notes", "/notes-app-uploads", { // Updated the API name
-            body: note
-        });
+        try {
+            return API.post("notes", "/notes-app-uploads", { // Updated the API name
+                body: note
+            });
+        } catch (e) {
+            console.log(e);
+        }
+        
     }
 
     return (
@@ -73,6 +77,7 @@ export default function NewNote() {
                     disabled={!validateForm()}>
                     Create
                 </LoaderButton>
+                
             </Form>
         </div>
     );
