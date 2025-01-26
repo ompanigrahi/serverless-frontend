@@ -78,7 +78,7 @@ export default function Home() {
                 
                 <div className="notes-container">
                     {notes.map(({ noteId, content, createdAt, attachment, userId }) => {
-                        const safeContent = typeof content === "string" ? content : "No content available";
+                        //const safeContent = typeof content === "string" ? content : "No content available";
                         const safeAttachment = typeof attachment === "string" ? attachment : null;
 
                         const filePath = `private/${userId}/${safeAttachment}`;
