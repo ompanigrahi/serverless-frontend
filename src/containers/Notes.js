@@ -126,26 +126,28 @@ export default function Notes() {
                         )}
                         <Form.Control onChange={handleFileChange} type="file" />
                     </Form.Group>
-                    <LoaderButton
-                        block
-                        size="lg"
-                        type="submit"
-                        isLoading={isLoading}
-                        disabled={!validateForm()}
-                    >
-                        Save
-                    </LoaderButton>
-                    <LoaderButton
-                        block
-                        size="lg"
-                        variant="danger"
-                        onClick={handleDelete}
-                        isLoading={isDeleting}
-                    >
-                        Delete
-                    </LoaderButton>
+                    <div className="btn-group">
+                        <LoaderButton
+                            block
+                            size="lg"
+                            type="submit"
+                            isLoading={isLoading}
+                            disabled={!validateForm()}
+                        >
+                            Save
+                        </LoaderButton>
+                        <LoaderButton
+                            block
+                            size="lg"
+                            variant="danger"
+                            onClick={handleDelete}
+                            isLoading={isDeleting}
+                        >
+                            Delete
+                        </LoaderButton>
+                    </div>
                 </Form>
             )}
         </div>
-    );
+    );    
 }
