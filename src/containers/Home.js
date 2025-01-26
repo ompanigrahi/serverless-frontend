@@ -75,51 +75,39 @@ export default function Home() {
     function renderNotesList(notes) {
         return (
             <>
-                <LinkContainer to="/notes-app-uploads/new">
-                    <ListGroup.Item action className="py-3 text-nowrap text-truncate">
-                        <BsPencilSquare size={17} />
-                        <span className="ml-2 font-weight-bold">Create a new note</span>
-                    </ListGroup.Item>
-                </LinkContainer>
-                <ListGroup.Item
-                    action
-                    className="py-3 text-center font-weight-bold text-danger"
-                    onClick={handleDeleteAll}
-                >
-                    Delete All Notes
-                </ListGroup.Item>
-                {notes.map(({ noteId, content, createdAt, attachment }) => {
-                    const imageUrl = attachment ? `${BASE_URL}/${attachment}` : null;
+                
+                <div className="notes-container">
+                    {notes.map(({ noteId, content, createdAt, attachment, userId }) => {
+                        const safeContent = typeof content === "string" ? content : "No content available";
+                        const safeAttachment = typeof attachment === "string" ? attachment : null;
 
-                    return (
-                        <LinkContainer key={noteId} to={`/notes-app-uploads/${noteId}`}>
-                            <ListGroup.Item action className="d-flex align-items-center">
-                                {imageUrl && (
-                                    <img
-                                        src={imageUrl}
-                                        alt={`Note ${content.trim().split("\n")[0] || "Image"}`}
-                                        className="note-image"
-                                        onError={(e) =>
-                                            (e.target.src = "/default-image.png")
-                                        }
-                                    />
-                                )}
-                                <div>
-                                    <span className="font-weight-bold">
-                                        {content.trim().split("\n")[0]}
-                                    </span>
-                                    <br />
-                                    <span className="text-muted">
-                                        Created: {new Date(createdAt).toLocaleString()}
-                                    </span>
+                        const filePath = `private/${userId}/${safeAttachment}`;
+                        const encodedKey = encodeURIComponent(filePath);
+                        const imageUrl = `${BASE_URL}/${encodedKey}`;
+
+                        return (
+                            <LinkContainer key={noteId} to={`/notes-app-uploads/${noteId}`} style={{ textDecoration: 'none' }}>
+                                <div className="note-card">
+                                    {imageUrl && (
+                                        <img
+                                            src={imageUrl}
+                                            alt={`Note ${content.trim().split("\n")[0] || "Image"}`}
+                                            className="note-image"
+                                            onError={(e) => (e.target.src = "/default-image.png")}
+                                        />
+                                    )}
+                                    <h3>{content.trim().split("\n")[0]}</h3>
                                 </div>
-                            </ListGroup.Item>
-                        </LinkContainer>
-                    );
-                })}
+                            </LinkContainer>
+                        );
+                    })}
+                </div>
             </>
         );
     }
+
+
+
 
     function renderLander() {
         return (
@@ -145,14 +133,27 @@ export default function Home() {
                     Welcome, <span>{greet}</span>
                 </h2>
                 <h2 className="pb-3 mt-4 mb-3 border-bottom">Your Notes</h2>
-                <Form className="mb-3">
+                <div className="search-create-delete-container">
                     <Form.Control
                         type="text"
                         placeholder="Search notes..."
                         value={searchTerm}
                         onChange={handleSearch}
                     />
-                </Form>
+                    <LinkContainer to="/notes-app-uploads/new">
+                        <Button variant="success" className="create-note-button">
+                            <BsPencilSquare size={17} />
+                            <span className="ml-2 font-weight-bold">Create a new note</span>
+                        </Button>
+                    </LinkContainer>
+                    <Button
+                        variant="danger"
+                        className="delete-all-button"
+                        onClick={handleDeleteAll}
+                    >
+                        Delete All Notes
+                    </Button>
+                </div>
                 {!isLoading ? (
                     <ListGroup>{renderNotesList(filteredNotes)}</ListGroup>
                 ) : (
@@ -161,6 +162,7 @@ export default function Home() {
             </div>
         );
     }
+
 
     return (
         <div className="Home">
