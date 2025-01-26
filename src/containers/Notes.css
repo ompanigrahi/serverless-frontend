@@ -1,4 +1,14 @@
 .Notes form textarea {
-    height: 300px;
+    height: 425px;
     font-size: 1.5rem;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-group .LoaderButton {
+    flex: 1;
+    margin: 0 5px;
 }
